@@ -71,14 +71,14 @@ export default function DashboardPage() {
                 if (data) {
                     // Menggunakan data elevasi_air sebagai ketinggian air
                     const level = parseFloat(data.elevasi_air?.toString() || "0");
-                    
+
                     // Format timestamp if it exists, otherwise use current time
-                    const timeStr = data.timestamp 
-                        ? new Date(data.timestamp).toLocaleString("id-ID") 
+                    const timeStr = data.timestamp
+                        ? new Date(data.timestamp).toLocaleString("id-ID")
                         : new Date().toLocaleString("id-ID");
 
                     if (data.latitude && data.longitude) {
-                         setLocation({ lat: parseFloat(data.latitude), lng: parseFloat(data.longitude) });
+                        setLocation({ lat: parseFloat(data.latitude), lng: parseFloat(data.longitude) });
                     }
 
                     setCurrentLevel(level);
@@ -93,7 +93,7 @@ export default function DashboardPage() {
 
                     // Prediksi dari alat IoT
                     const predLevel = data.prediksi !== undefined && data.prediksi !== null ? parseFloat(data.prediksi) : null;
-                    
+
                     // Kita bisa tetap menggunakan getRiskAnalysis untuk menentukan status dan risk jika IoT tidak mengirimkannya,
                     // atau menggunakan data langsung dari IoT jika ada.
                     const analysis = getRiskAnalysis(level, predLevel);
@@ -103,7 +103,7 @@ export default function DashboardPage() {
                         risk: data.risk || analysis.risk,
                         color: analysis.color // color bisa tetap dari frontend atau sesuaikan
                     });
-                    
+
                     setPredictions([{
                         time: timeStr,
                         predictedLevel: predLevel,
@@ -148,7 +148,7 @@ export default function DashboardPage() {
                         <h4 className="font-bold text-[15px] leading-tight tracking-wide">PERINGATAN! Kondisi Sungai Bahaya</h4>
                         <p className="text-[13px] mt-0.5 text-white/90">Segera lakukan pencegahan</p>
                     </div>
-                    <button 
+                    <button
                         onClick={() => setIsAlertDismissed(true)}
                         className="flex-shrink-0 p-1 hover:bg-black/10 rounded-md transition-colors ml-2"
                     >
@@ -204,7 +204,7 @@ export default function DashboardPage() {
             </div>
 
             <footer className="mt-16 text-center text-[10px] text-gray-400 font-bold uppercase tracking-widest pb-10">
-                &copy; 2024 BPBD Kabupaten Jember - Flood Information System
+                &copy;
             </footer>
         </main>
     );
