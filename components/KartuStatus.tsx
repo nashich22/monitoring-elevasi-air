@@ -6,8 +6,8 @@ interface StatusCardsProps {
 }
 
 export default function KartuStatus({ level }: StatusCardsProps) {
-    const isNormal = level <= 50;
-    const isWaspada = level > 50 && level <= 75;
+    const isNormal = level < 56;
+    const isWaspada = level >= 56 && level <= 75;
     const isBahaya = level > 75;
 
     const cards = [

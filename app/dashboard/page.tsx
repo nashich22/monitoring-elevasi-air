@@ -24,13 +24,14 @@ export default function DashboardPage() {
         currentLevel: number;
         status: string;
         currentStatus: string;
-        risk: string
+        risk: string;
+        color: string;
     }[]>([]);
     const [isAlertDismissed, setIsAlertDismissed] = useState(false);
     const [firebaseError, setFirebaseError] = useState<string | null>(null);
 
     const getStatus = (level: number) => {
-        if (level <= 50) return "NORMAL";
+        if (level < 56) return "NORMAL";
         if (level <= 75) return "WASPADA";
         return "BAHAYA";
     };
@@ -41,21 +42,27 @@ export default function DashboardPage() {
         const curS = getStatus(current);
         const predS = getStatus(predicted);
 
+        // Kasus 1, 2, 3: Current Normal (<56)
         if (curS === "NORMAL") {
             if (predS === "NORMAL") return { status: "NORMAL", risk: "Rendah", color: "#22c55e" };
-            if (predS === "WASPADA") return { status: "WASPADA", risk: "Waspada (Sedang)", color: "#f59e0b" };
-            if (predS === "BAHAYA") return { status: "BAHAYA", risk: "Bahaya (Tinggi)", color: "#ef4444" };
+            if (predS === "WASPADA") return { status: "WASPADA", risk: "Sedang", color: "#f59e0b" };
+            if (predS === "BAHAYA") return { status: "BAHAYA", risk: "Tinggi", color: "#ef4444" };
         }
+
+        // Kasus 4, 5, 6: Current Waspada (56-75)
         if (curS === "WASPADA") {
             if (predS === "NORMAL") return { status: "NORMAL", risk: "Waspada (Menurun)", color: "#f59e0b" };
             if (predS === "WASPADA") return { status: "WASPADA", risk: "Waspada (Sedang)", color: "#f59e0b" };
-            if (predS === "BAHAYA") return { status: "BAHAYA", risk: "(Tinggi) Bahaya", color: "#ef4444" };
+            if (predS === "BAHAYA") return { status: "BAHAYA", risk: "Bahaya (Tinggi)", color: "#ef4444" };
         }
+
+        // Kasus 7, 8, 9: Current Bahaya (>75)
         if (curS === "BAHAYA") {
             if (predS === "NORMAL") return { status: "NORMAL", risk: "Menurun Signifikan", color: "#22c55e" };
             if (predS === "WASPADA") return { status: "WASPADA", risk: "Menurun Bertahap", color: "#f59e0b" };
-            if (predS === "BAHAYA") return { status: "BAHAYA", risk: "(Kritis) Bahaya", color: "#ef4444" };
+            if (predS === "BAHAYA") return { status: "BAHAYA", risk: "Bahaya (Kritis)", color: "#ef4444" };
         }
+
         return { status: "NORMAL", risk: "Rendah", color: "#22c55e" };
     };
 
@@ -110,7 +117,8 @@ export default function DashboardPage() {
                         currentLevel: level,
                         status: data.predicted_status || analysis.status,
                         currentStatus: status,
-                        risk: data.risk || analysis.risk
+                        risk: data.risk || analysis.risk,
+                        color: analysis.color
                     }]);
                 }
             } else {
@@ -137,7 +145,7 @@ export default function DashboardPage() {
             )}
 
             {/* Floating Danger Alert */}
-            {getStatus(currentLevel) === "BAHAYA" && !isAlertDismissed && (
+            {riskInfo.status === "BAHAYA" && !isAlertDismissed && (
                 <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-[100] bg-[#e30000] text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-4">
                     <div className="flex-shrink-0">
                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

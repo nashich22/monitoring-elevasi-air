@@ -8,6 +8,7 @@ interface PredictionData {
     status: string;
     currentStatus: string;
     risk: string;
+    color: string;
 }
 
 interface PredictionTableProps {
@@ -66,14 +67,18 @@ export default function TabelPrediksi({ data }: PredictionTableProps) {
                                 </div>
                             </td>
                             <td className="px-6 py-4">
-                                <span className={`px-3 py-1 rounded-full text-[11px] font-bold text-white ${!hasPrediction ? "bg-gray-400" : item.status === "NORMAL" ? "bg-green-500" : item.status === "WASPADA" ? "bg-amber-500" : "bg-red-500"
-                                    }`}>
+                                <span 
+                                    className={`px-3 py-1 rounded-full text-[11px] font-bold text-white`}
+                                    style={{ backgroundColor: hasPrediction ? item.color : "#9ca3af" }}
+                                >
                                     {!hasPrediction ? "Menunggu" : item.status.charAt(0).toUpperCase() + item.status.slice(1).toLowerCase()}
                                 </span>
                             </td>
                             <td className="px-6 py-4">
-                                <span className={`px-3 py-1 rounded-full text-[11px] font-bold text-white ${!hasPrediction ? "bg-gray-400" : item.risk.includes("Rendah") || item.risk.includes("Signifikan") ? "bg-green-500" : item.risk.includes("Sedang") || item.risk.includes("Menurun") || item.risk.includes("Bertahap") ? "bg-amber-500" : "bg-red-500"
-                                    }`}>
+                                <span 
+                                    className={`px-3 py-1 rounded-full text-[11px] font-bold text-white`}
+                                    style={{ backgroundColor: hasPrediction ? item.color : "#9ca3af" }}
+                                >
                                     {!hasPrediction ? "-" : item.risk}
                                 </span>
                             </td>
