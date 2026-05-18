@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "E-Monitoring Elevasi Air - BPBD Jember",
+  title: "E-Monitoring Elevasi Air",
   description: "Sistem Monitoring Elevasi Air Realtime",
 };
 
