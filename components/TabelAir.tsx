@@ -12,14 +12,14 @@ export default function TabelAir({ data }: WaterTableProps) {
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6 border border-gray-100">
             <div className="px-6 py-4 border-b border-gray-100">
-                <h3 className="text-sm font-bold text-gray-800">Data Ketinggian Air Saat Ini</h3>
+                <h3 className="text-sm font-bold text-gray-800">Data Elevasi Air Saat Ini</h3>
             </div>
             <div className="overflow-x-auto">
                 <table className="w-full text-left">
                     <thead>
                         <tr className="text-gray-500 text-[11px] font-bold border-b border-gray-50">
                             <th className="px-6 py-4">Lokasi</th>
-                            <th className="px-6 py-4">Ketinggian (cm)</th>
+                            <th className="px-6 py-4">Elevasi (cm)</th>
                             <th className="px-6 py-4">Status</th>
                             <th className="px-6 py-4">Waktu Update</th>
                         </tr>

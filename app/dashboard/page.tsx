@@ -76,7 +76,7 @@ export default function DashboardPage() {
                 console.log("Data diterima dari Firebase:", data);
 
                 if (data) {
-                    // Menggunakan data elevasi_air sebagai ketinggian air
+                    // Menggunakan data elevasi_air sebagai elevasi air
                     const level = parseFloat(data.elevasi_air?.toString() || "0");
 
                     // Format timestamp if it exists, otherwise use current time

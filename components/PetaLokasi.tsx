@@ -40,7 +40,7 @@ const PetaLokasi = ({ currentLevel, mapColor, risk, status, latitude, longitude 
             radius: 20
         })
             .addTo(mapInstance.current)
-            .bindTooltip(`Sensor Jember Pusat<br/>Ketinggian: ${currentLevel} cm<br/>Status: ${status}<br/>Risiko: ${risk}`, {
+            .bindTooltip(`Sensor Jember Pusat<br/>Elevasi: ${currentLevel} cm<br/>Status: ${status}<br/>Risiko: ${risk}`, {
                 permanent: true,
                 direction: "top",
                 className: "status-tooltip"
@@ -59,7 +59,7 @@ const PetaLokasi = ({ currentLevel, mapColor, risk, status, latitude, longitude 
             markerRef.current.setLatLng([lat, lng]);
             mapInstance.current.setView([lat, lng]); // Menggeser peta mengikuti alat
             markerRef.current.setStyle({ fillColor: mapColor });
-            markerRef.current.setTooltipContent(`Sensor Jember Pusat<br/>Ketinggian: ${currentLevel} cm<br/>Status: ${status}<br/>Risiko: ${risk}`);
+            markerRef.current.setTooltipContent(`Sensor Jember Pusat<br/>Elevasi: ${currentLevel} cm<br/>Status: ${status}<br/>Risiko: ${risk}`);
         }
     }, [currentLevel, mapColor, risk, status, lat, lng]);
 
